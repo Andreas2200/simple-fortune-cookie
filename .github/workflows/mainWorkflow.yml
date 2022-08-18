@@ -67,7 +67,6 @@ jobs:
         with:
           name: frontend
           path: .
-        
   Docker-backend-binary:
     runs-on: ubuntu-latest
     needs: Build-backend
@@ -95,8 +94,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-backend:latest
-
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-backend:dev
     Docker-frontend-binary:
     runs-on: ubuntu-latest
     needs: Build-frontend
@@ -116,6 +114,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-frontend:latest
-      
-  
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-frontend:dev
