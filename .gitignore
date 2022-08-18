@@ -4,6 +4,5 @@ backend/backend
 # frontend binary
 frontend/frontend
 
-*.mod
 *.sum
 
