@@ -76,14 +76,12 @@ jobs:
         with:
           name: backend
           path: .
-<<<<<<< HEAD
+
       - name: Download binary
         uses: actions/download-artifact@v2
         with:
           name: backend-binary
           path: .
-=======
->>>>>>> 7ab82f9 (Main workflow and backend docker file)
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -94,7 +92,6 @@ jobs:
         with:
           context: .
           push: true
-
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-backend:dev
   Docker-frontend-image:
     runs-on: ubuntu-latest
