@@ -1,4 +1,7 @@
 FROM scratch
-WORKDIR /app
-COPY backend /app/
-CMD ["./backend"]
+
+COPY ./backend /backend
+
+EXPOSE 9000
+
+ENTRYPOINT ["/backend"]
