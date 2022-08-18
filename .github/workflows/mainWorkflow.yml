@@ -76,6 +76,11 @@ jobs:
         with:
           name: backend
           path: .
+      - name: Download binary
+        uses: actions/download-artifact@v2
+        with:
+          name: backend-binary
+          path: .
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
