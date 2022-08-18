@@ -28,6 +28,8 @@ jobs:
         with:
           name: backend
           path: .
+      - name: Download Redigo
+        run: go mod download github.com/gomodule/redigo
       - name: Build Binary
         run: go build backend/
       - name: Upload Binary
