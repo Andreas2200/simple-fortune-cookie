@@ -110,7 +110,7 @@ jobs:
       - name: Download binary
         uses: actions/download-artifact@v2
         with:
-          name: backend-binary
+          name: frontend
           path: .
       - name: Login to DockerHub
         uses: docker/login-action@v2
