@@ -86,7 +86,6 @@ jobs:
         with:
           context: .
           push: true
-
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-backend:dev
   Docker-frontend-image:
     runs-on: ubuntu-latest
