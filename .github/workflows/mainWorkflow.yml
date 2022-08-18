@@ -67,7 +67,12 @@ jobs:
         with:
           name: frontend
           path: .
+<<<<<<< HEAD
   Docker-backend-image:
+=======
+        
+  Docker-backend-binary:
+>>>>>>> 11d1133 (Started work on pipeline for development)
     runs-on: ubuntu-latest
     needs: Build-backend
     steps:
