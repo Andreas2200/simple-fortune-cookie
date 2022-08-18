@@ -1,0 +1,11 @@
+name: Staging CI
+on:
+  pull_request:
+    branches:
+      - 'Staging'
+jobs:
+  Do-Nothing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do Nothing
+        run: ls

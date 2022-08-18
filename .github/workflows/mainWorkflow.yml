@@ -1,0 +1,11 @@
+name: Main CI
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  Do-Nothing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do Nothing
+        run: ls
