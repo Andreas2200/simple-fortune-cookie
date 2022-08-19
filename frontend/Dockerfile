@@ -1,4 +1,4 @@
 FROM scratch
-COPY frontend .
+COPY . .
 EXPOSE 8080
 ENTRYPOINT ["/frontend"]
