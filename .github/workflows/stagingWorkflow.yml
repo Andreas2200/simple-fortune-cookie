@@ -7,8 +7,8 @@ jobs:
   Clone-down:
     runs-on: ubuntu-latest
     steps:
+        uses: actions/checkout@v2
       - name: Upload frontend
-        #uses: actions/checkout@v2
         uses: actions/Upload-artifact@v2
         with:
           name: frontend
