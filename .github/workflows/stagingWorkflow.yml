@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Upload frontend
-        uses: actions/checkout@v2
+        #uses: actions/checkout@v2
         uses: actions/Upload-artifact@v2
         with:
           name: frontend
