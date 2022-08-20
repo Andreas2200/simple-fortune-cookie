@@ -20,6 +20,11 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+        - name: BACKEND_PORT
+          value: "9000"
+        - name: BACKEND_DNS
+          value: backend-service
 
 ---
 
@@ -42,6 +47,7 @@ spec:
       containers:
       - name: backend
         image: andreas2200/simple-fortune-cookie-backend:dev
+        imagePullPolicy: Always
         ports:
         - containerPort: 9000
 
