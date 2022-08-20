@@ -8,4 +8,4 @@ COPY --from=BUILDER /src/frontend .
 COPY --from=BUILDER /src/static .
 EXPOSE 8080
 RUN apk add libc6-compat
-ENTRYPOINT ["/frontend"]
+ENTRYPOINT ["./frontend"]
