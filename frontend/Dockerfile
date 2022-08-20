@@ -1,5 +1,10 @@
+FROM golang:1.18 as BUILDER
+ADD . /src/
+RUN cd /src/ && go build -o frontend
+
 FROM alpine
-RUN apk add libc6-compat
-COPY . .
+WORKDIR /app
+COPY --from=BUILDER /src/frontend .
 EXPOSE 8080
+RUN apk add libc6-compat && ls
 ENTRYPOINT ["./frontend"]
