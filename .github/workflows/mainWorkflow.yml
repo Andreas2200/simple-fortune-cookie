@@ -63,8 +63,6 @@ jobs:
         with:
           name: frontend
           path: .
-      - name: Check dir
-        run: ls
       - name: Build Binary
         run: CGO_ENABLED=0 go build .
       - name: Upload Binary
