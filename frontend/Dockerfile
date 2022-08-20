@@ -5,7 +5,7 @@ RUN cd /src/ && go build -o frontend
 FROM alpine
 WORKDIR /app
 COPY --from=BUILDER /src/frontend .
-COPY --from=BUILDER /src/static .
+COPY --from=BUILDER /src/static ./static
 EXPOSE 8080
 RUN apk add libc6-compat && ls
 ENTRYPOINT ["./frontend"]
