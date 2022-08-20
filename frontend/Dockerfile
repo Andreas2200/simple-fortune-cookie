@@ -7,4 +7,4 @@ WORKDIR /app
 COPY --from=BUILDER /src/frontend .
 COPY --from=BUILDER /src/static .
 EXPOSE 8080
-ENTRYPOINT ["./frontend"]
+ENTRYPOINT ["/frontend"]
