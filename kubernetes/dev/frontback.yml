@@ -17,6 +17,7 @@ spec:
       containers:
       - name: frontend
         image: andreas2200/simple-fortune-cookie-frontend:dev
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 
