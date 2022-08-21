@@ -1,5 +1,8 @@
 name: Main CI
 on:
+  push:
+    branches:
+      - 'main'
   pull_request:
     branches:
       - 'main'
@@ -125,4 +128,3 @@ jobs:
         run: kubectl apply -f dev/redis.yml
       - name: Redeploy app
         run: kubectl delete -f dev/frontback.yml && kubectl apply -f dev/frontback.yml
-
