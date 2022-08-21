@@ -136,7 +136,7 @@ jobs:
         name: main_test.go
         path: frontend/
     - name: Frontend test
-      run: 
+      run: ls 
     - name: Upload
       uses: actions/Upload-artifact@v2
       with:
