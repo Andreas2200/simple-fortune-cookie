@@ -21,6 +21,11 @@ jobs:
         with:
           name: backend
           path: backend/
+      - name: Upload kubernetes
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubernetes
+          path: kubernetes/
   Build-Backend:
     runs-on: ubuntu-latest
     needs: Clone-down
@@ -108,3 +113,14 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-frontend:dev
+  Deploy-To-Development:
+    runs-on: Development
+    needs: [Docker-frontend-image, Docker-backend-image]
+    steps:
+      - name: Download kubernetes
+        uses: actions/download-artifact@v2
+        with:
+          name: kubernetes
+          path: .
+      - name: Deploy redis server
+        run: ls
