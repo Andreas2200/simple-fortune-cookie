@@ -122,6 +122,6 @@ jobs:
           name: kubernetes
           path: .
       - name: Deploy redis server
-        run: k apply -f dev/redis.yml
+        run: kubectl apply -f dev/redis.yml
       - name: Redeploy app
-        run: k delete -f dev/frontback.yml && k apply -f dev/frontback.yml
+        run: kubectl delete -f dev/frontback.yml && kubectl apply -f dev/frontback.yml
