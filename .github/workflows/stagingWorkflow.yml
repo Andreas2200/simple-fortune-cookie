@@ -12,21 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Upload frontend
-        uses: actions/Upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: frontend
           path: frontend/
       - name: Upload backend
-        uses: actions/Upload-artifact@v2
-        with: 
+        uses: actions/upload-artifact@v2
+        with:
           name: backend
           path: backend/
       - name: Upload kubernetes
-        uses: action/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: kubernetes
           path: kubernetes/
-  Build-backend:
+  Build-Backend:
     runs-on: ubuntu-latest
     needs: Clone-down
     container: golang:1.19-alpine
@@ -39,12 +39,17 @@ jobs:
       - name: Download Redigo
         run: go mod download github.com/gomodule/redigo
       - name: Build Binary
-        run: go build backend/
+        run: CGO_ENABLED=0 go build backend/
       - name: Upload Binary
         uses: actions/upload-artifact@v2
         with:
           name: backend-binary
           path: backend
+      - name: Upload backend
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend
+          path: .
   Build-Frontend:
     runs-on: ubuntu-latest
     needs: Clone-down
@@ -56,12 +61,71 @@ jobs:
           name: frontend
           path: .
       - name: Build Binary
-        run: go build frontend/
+        run: CGO_ENABLED=0 go build .
       - name: Upload Binary
         uses: actions/upload-artifact@v2
         with:
           name: frontend-binary
           path: frontend
+      - name: Upload frontend
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend
+          path: .
+  Docker-backend-image:
+    runs-on: ubuntu-latest
+    needs: Build-backend
+    steps:
+      - name: Download backend
+        uses: actions/download-artifact@v2
+        with:
+          name: backend
+          path: .
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-backend:dev
+    Docker-frontend-image:
+    runs-on: ubuntu-latest
+    needs: Build-frontend
+    steps:
+      - name: Download frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend
+          path: .
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-fortune-cookie-frontend:dev
+  Deploy-To-Development:
+    runs-on: Development
+    needs: [Docker-frontend-image, Docker-backend-image]
+    steps:
+      - name: Download kubernetes
+        uses: actions/download-artifact@v2
+        with:
+          name: kubernetes
+          path: .
+      - name: Deploy redis server
+        run: kubectl apply -f dev/redis.yml
+      - name: Redeploy app
+        run: kubectl delete -f dev/frontback.yml && kubectl apply -f dev/frontback.yml
   Test:
     runs-on: ubuntu-latest
     needs: Clone-down
