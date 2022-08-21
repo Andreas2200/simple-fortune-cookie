@@ -8,3 +8,4 @@ COPY --from=BUILDER /src/backend .
 EXPOSE 9000
 RUN apk add libc6-compat && ls
 ENTRYPOINT ["./backend"]
+
