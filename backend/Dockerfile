@@ -1,6 +1,6 @@
 FROM golang:1.18 as BUILDER
 ADD . /src/
-run cd /src/ && go mod download github.com/gomodule/redigo && go build -o backend
+RUN cd /src/ && go mod download github.com/gomodule/redigo && go build -o backend
 
 FROM alpine
 WORKDIR /app
